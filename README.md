@@ -110,13 +110,13 @@ Reminder: answer the following questions [here](https://forms.gle/6SM7cu4cYhNsRv
 |Question | How can we represent the system in an **architecture diagram**, which gives information both about the Docker containers, the communication protocols and the commands? |
 | | *Insert your diagram here...* |
 |Question | Who is going to **send UDP datagrams** and **when**? |
-| | *Enter your response here...* |
+| | Les musiciens envoie leur uuid ainsi que le son lié à leur instrument chaque seconde. |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
-| | *Enter your response here...* |
+| | Ce sont les auditeurs qui vont écouter les UDP datagrams entrant dans l'adresse multicast 239.255.22.5 envoyer par les musiciens. |
 |Question | What **payload** should we put in the UDP datagrams? |
-| | *Enter your response here...* |
+| | Ce qui doit être mis dans le payload des UPD datagrams sont l'uuid du musicien et le son produit par son instrument. |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
-| | *Enter your response here...* |
+| | Les musiciens doivent envoyer des datas au format JSON qui seront ensuite parsées par les auditeurs. Ces derniers vont ensuite update les data structures lorsqu'un uuid déjà existant est reçu à nouveau.|
 
 
 ## Task 2: implement a "musician" Node.js application
@@ -124,21 +124,21 @@ Reminder: answer the following questions [here](https://forms.gle/6SM7cu4cYhNsRv
 | #  | Topic |
 | ---  | --- |
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
-| | *Enter your response here...*  |
+| | À l'aide de la fonction stringify() de JSON, on transforme un object javascript en string pour pouvoir l'envoyer. Ensuite avec la fonction parse() de JSON, on effectue l'inverse (transformation d'un string en object javascript. |
 |Question | What is **npm**?  |
-| | *Enter your response here...*  |
+| | Node Package Manager, permet de gérer les dépendances et d'installer les packages de NodeJS. |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
-| | *Enter your response here...*  |
-|Question | How can we use the `https://www.npmjs.com/` web site?  |
-| | *Enter your response here...*  |
+| | La commande `npm install` permet d'installer un package désiré de NodeJS et ses dépendances dans un dossier appelé `node-modules`. On utilise le flag `--save` pour sauvegarder les dépendences installées dans le fichier package.json lorsqu'un package est spécifié (`npm install <nomdupackage> --save`). |
+|Question | How can we use the `https://www.npmjs.com/` web site? |
+| | Le site est une bibliothèque contenant tous les packages peuvantt être installer dans un projet NodeJS. Il suffit de rechercher le package désiré et d'utiliser la commande `npm install <nomdupackage> --save` afin de l'installer. |
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
-| | *Enter your response here...*  |
+| | Tout d'abord il faut installer le package uuid avec `npm install uuid --save`, ensuite dans le script javascript écrite la ligne suivante `var { v4: uuidv4 } = require('uuid');` et pour finir avec la fonction `uuidv4()` on génère un uuid aléatoire. |
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
-| | *Enter your response here...*  |
+| | Grâce à la fonction setInterval(function, time), à noter que `time` est en milliseconde donc pour exécuter la fonction chaque seconde il faut mettre `1000`  |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
-| | *Enter your response here...*  |
+| | À l'aide du module de NodeJS `dgram`. Il faut écrire les lignes suivantes dans le script `var dgram = require('dgram');`, ensuite `var s = dgram.createSocket('udp4');` qui va créer le socket et pour finir grâce à la fonction `send(message, offset, lenght, port, address, function)`, on peut envoyer nos UDP datagrams. |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | *Enter your response here...*  |
+| | Grâce à l'objet process, il est possible de récupérer les arguments avec `process.argv[n]` (n étant l'index de l'argument voulu). |
 
 
 ## Task 3: package the "musician" app in a Docker image
