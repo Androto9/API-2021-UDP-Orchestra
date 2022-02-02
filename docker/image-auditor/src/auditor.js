@@ -60,8 +60,9 @@ s.on('message', function(msg, source) {
 
         musicians.push(musician);
     } else {
-        let updateTime = musicians.indexOf(data.uuid);
-        updateTime.time = 0;
+        // Update musician time
+        let musicianUUID = musicians.find(m => m.uuid === data.uuid);
+        musicianUUID.time = 0;
     }
 });
 
