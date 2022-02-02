@@ -1,0 +1,8 @@
+
+docker/.DS_Store
+
+docker/node_modules/
+
+docker/package-lock.json
+
+docker/package.json

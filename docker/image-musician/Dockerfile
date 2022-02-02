@@ -1,7 +1,9 @@
 FROM node:16.13
 
-COPY src /opt/app/
+WORKDIR /opt/app
 
-EXPOSE 2204
+RUN npm install uuid --save
 
-CMD ["node", "/opt/app/musician.js"]
+COPY src .
+
+ENTRYPOINT ["node", "/opt/app/musician.js"]
