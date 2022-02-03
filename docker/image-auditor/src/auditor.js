@@ -18,9 +18,7 @@ let musicians = [];
 
 // Update musicians time
 function updateMusiciansTime() {
-    musicians.forEach(function(musician) {
-        musician.time++;
-    });
+    musicians.map(m => m.time++);
 }
 
 // Clears musicians that didnt play for more than 5 seconds
