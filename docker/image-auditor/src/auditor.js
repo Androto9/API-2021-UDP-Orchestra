@@ -25,13 +25,7 @@ function updateMusiciansTime() {
 
 // Clears musicians that didnt play for more than 5 seconds
 function clearMusicians() {
-    for (let i = 0; i < musicians.length; ++i) {
-        if (musicians[i].time > 5) {
-          musicians.splice(i, 1);
-        }
-    }
-    
-    //musicians.filter(m => m.time > 5).map(m => m.splice(m, 1));
+    musicians = musicians.filter(m => m.time <= 5);
 }
 
 // Join the multicast UDP address
@@ -47,7 +41,7 @@ s.on('message', function(msg, source) {
     // Parses the JSON data
     let data = JSON.parse(msg);
 
-    const alreadyPlaying = musicians.filter(musician => musician.uuid === data.uuid).length > 0
+    const alreadyPlaying = musicians.filter(musician => musician.uuid === data.uuid).length > 0;
 
     // Add the musician in the list if not there yet or update musician time
     if (!alreadyPlaying) {
