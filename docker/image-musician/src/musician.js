@@ -19,16 +19,16 @@ class Musician {
         this.instrumentSound.set('drum', 'boum-boum');
 
         Musician.prototype.play = function () {
-            let sound = this.instrumentSound.get(this.instrument);
+            const sound = this.instrumentSound.get(this.instrument);
 
-            let data = {
+            const data = {
                 uuid: this.uuid,
                 sound: sound
             };
 
-            let payload = JSON.stringify(data);
+            const payload = JSON.stringify(data);
 
-            let message = new Buffer.from(payload);
+            const message = new Buffer.from(payload);
 
             s.send(message, 0, message.length, protocol.PROTOCOL_PORT, protocol.PROTOCOL_MULTICAST_ADDRESS, function (err, bytes) {
                 console.log("Sending payload " + payload + " via port " + s.address().port);
@@ -40,7 +40,7 @@ class Musician {
 }
 
 // Get the instrument from the command line argument
-let instrument = process.argv[2];
+const instrument = process.argv[2];
 
 // Set instrument to new musician
-let musician = new Musician(instrument);
+new Musician(instrument);

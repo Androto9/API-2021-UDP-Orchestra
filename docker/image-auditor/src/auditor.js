@@ -18,20 +18,12 @@ let musicians = [];
 
 // Update musicians time
 function updateMusiciansTime() {
-    musicians.forEach(function(musician) {
-        musician.time++;
-    });
+    musicians.forEach(m => m.time++);
 }
 
 // Clears musicians that didnt play for more than 5 seconds
 function clearMusicians() {
-    for (let i = 0; i < musicians.length; ++i) {
-        if (musicians[i].time > 5) {
-          musicians.splice(i, 1);
-        }
-    }
-    
-    //musicians.filter(m => m.time > 5).map(m => m.splice(m, 1));
+    musicians = musicians.filter(m => m.time <= 5);
 }
 
 // Join the multicast UDP address
@@ -47,7 +39,7 @@ s.on('message', function(msg, source) {
     // Parses the JSON data
     let data = JSON.parse(msg);
 
-    const alreadyPlaying = musicians.filter(musician => musician.uuid === data.uuid).length > 0
+    const alreadyPlaying = musicians.filter(musician => musician.uuid === data.uuid).length > 0;
 
     // Add the musician in the list if not there yet or update musician time
     if (!alreadyPlaying) {
@@ -78,7 +70,7 @@ var tcpServer = net.createServer(function (socket) {
     let musiciansList = JSON.parse(JSON.stringify(musicians));
 
     // Removes the time of musicians to not display it
-    musiciansList.forEach(function (tmp) { delete tmp.time });
+    musiciansList.forEach(tmp => delete tmp.time);
 
     // Sends the list of musicians and close the socket
     socket.write(JSON.stringify(musiciansList));
