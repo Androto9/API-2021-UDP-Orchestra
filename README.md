@@ -110,7 +110,7 @@ Reminder: answer the following questions [here](https://forms.gle/6SM7cu4cYhNsRv
 |Question | How can we represent the system in an **architecture diagram**, which gives information both about the Docker containers, the communication protocols and the commands? |
 | | *Insert your diagram here...* |
 |Question | Who is going to **send UDP datagrams** and **when**? |
-| | Les musiciens envoie leur uuid ainsi que le son lié à leur instrument chaque seconde. |
+| | Les musiciens envoient leur uuid ainsi que le son lié à leur instrument chaque seconde. |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
 | | Ce sont les auditeurs qui vont écouter les UDP datagrams entrant dans l'adresse multicast 239.255.22.5 envoyer par les musiciens. |
 |Question | What **payload** should we put in the UDP datagrams? |
@@ -134,7 +134,7 @@ Reminder: answer the following questions [here](https://forms.gle/6SM7cu4cYhNsRv
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
 | | Tout d'abord il faut installer le package uuid avec `npm install uuid --save`, ensuite dans le script javascript écrite la ligne suivante `var { v4: uuidv4 } = require('uuid');` et pour finir avec la fonction `uuidv4()` on génère un uuid aléatoire. |
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
-| | Grâce à la fonction setInterval(function, time), à noter que `time` est en milliseconde donc pour exécuter la fonction chaque seconde il faut mettre `1000`  |
+| | Grâce à la fonction setInterval(function, time), à noter que `time` est en milliseconde donc pour exécuter la fonction chaque seconde il faut mettre `1000`.  |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
 | | À l'aide du module de NodeJS `dgram`. Il faut écrire les lignes suivantes dans le script `var dgram = require('dgram');`, ensuite `var s = dgram.createSocket('udp4');` qui va créer le socket et pour finir grâce à la fonction `send(message, offset, lenght, port, address, function)`, on peut envoyer nos UDP datagrams. |
 |Question | In Node.js, how can we **access the command line arguments**? |
@@ -146,17 +146,17 @@ Reminder: answer the following questions [here](https://forms.gle/6SM7cu4cYhNsRv
 | #  | Topic |
 | ---  | --- |
 |Question | How do we **define and build our own Docker image**?|
-| | *Enter your response here...*  |
+| | En premier il faut créer un dockerfile dans le dossier ou l'on désire créer une image. Ensuite, il faut utiliser la commande `docker build -t [tag/nom de l'image] .` dans le dossier ou se trouve notre dockerfile. |
 |Question | How can we use the `ENTRYPOINT` statement in our Dockerfile?  |
-| | *Enter your response here...*  |
+| | La commande `ENTRYPOINT ["node", "/opt/app/musician.js"]` permet d'exécuter la commande `node /opt/app/musician.js` dans un container à sa création et va lancer le fichier js correspondant (musician.js dans ce cas). |
 |Question | After building our Docker image, how do we use it to **run containers**?  |
-| | *Enter your response here...*  |
+| | Il faut utiliser la commande `docker run -d --name pianist res/musician piano`. Ici piano est l'argument qu'on passe à notre fichier js. |
 |Question | How do we get the list of all **running containers**?  |
-| | *Enter your response here...*  |
+| | Avec la commande `docker ps`. |
 |Question | How do we **stop/kill** one running container?  |
-| | *Enter your response here...*  |
+| | En premier, il faut soit le nom du container soit l'id. Ensuite, il suffit d'utiliser la commande `docker kill [nom du container ou id]`  |
 |Question | How can we check that our running containers are effectively sending UDP datagrams?  |
-| | *Enter your response here...*  |
+| | Il faut run un container de `res/musician` sans l'option `-d` (qui effectue les tâches en background) afin d'obtenir les sorties sur la console. Ensuite, utiliser la commande `docker logs` pour voir les datagrammes envoyés. Pour vérifier qu'on envoie correctement, on peut aussi run un container de `res/auditor` pour vérifier que celui-ci reçoit bien les données. |
 
 
 ## Task 4: implement an "auditor" Node.js application
@@ -164,15 +164,15 @@ Reminder: answer the following questions [here](https://forms.gle/6SM7cu4cYhNsRv
 | #  | Topic |
 | ---  | ---  |
 |Question | With Node.js, how can we listen for UDP datagrams in a multicast group? |
-| | *Enter your response here...*  |
+| | Il faut utiliser `dgram` en écrivant dans le script js les lignes suivantes `const dgram = require('dgram');` puis `const s = dgram.createSocket('udp4');`, cette dernière va créer le socket pour la connection **UDP**. Ensuite, il faut faire un `bind(port, function)` et dans ce bind il faut utiliser la fonction `addMembership(multicast address)`. |
 |Question | How can we use the `Map` built-in object introduced in ECMAScript 6 to implement a **dictionary**?  |
-| | *Enter your response here...* |
+| | `Map` permet d'associer les sons à leurs instrments et vice-versa. Il faut écrire la ligne suivante sur le script js `const myMap = new Map()` et pour y ajouter des éléments il faut faire `myMap.set('piano', 'ti-ta-ti')`. |
 |Question | How can we use the `Moment.js` npm module to help us with **date manipulations** and formatting?  |
-| | *Enter your response here...* |
+| | Tout d'abord, installer le module avec la commande `npm install moment --save`, ensuite dans le script écrire `const moment = require('moment')` et pour finir faire `moment.format();` pour générer la date par défaut. Plusieurs formats sont fournis par le module, pour en savoir plus il suffit de consulter la documentation de moment.js|
 |Question | When and how do we **get rid of inactive players**?  |
-| | *Enter your response here...* |
+| | On supprime un musicien quand ce dernier n'a pas envoyé de son depuis plus de 5 secondes. Dans notre script js, nous avons une fonction qui incrémente le temps chaque seconde. Ensuite dans la fonction `s.on()`, on ajoute un musicien s'il n'existait pas déjà par contre s'il est déjà dans la liste on réinisialise sont temps à 0. Pour finir, on a une fonction qui supprime les musiciens qui n'ont pas envoyé de sons depuis plus de 5 secondes. |
 |Question | How do I implement a **simple TCP server** in Node.js?  |
-| | *Enter your response here...* |
+| | Il y a 3 étapes à l'implémentation, premièrement on ajoute au script la ligne `const net = require('net');`, ensuite on doit créer le serveur avec `var tcpServer = net.createServer(function(socket))` qui sera appelée à chaque fois qu'un client se connecte. Pour finir, on utilise la fonction `listen(tcp_port)` avec le port pour la connection **TCP**. |
 
 
 ## Task 5: package the "auditor" app in a Docker image
@@ -180,7 +180,7 @@ Reminder: answer the following questions [here](https://forms.gle/6SM7cu4cYhNsRv
 | #  | Topic |
 | ---  | --- |
 |Question | How do we validate that the whole system works, once we have built our Docker image? |
-| | *Enter your response here...* |
+| | Il y a 2 façon de valider le bon fonctionnement de notre système. La première est de run un container **auditor** et plusieurs **musician**, ensuite de faire un `telnet localhost 2205` sur la console et la on devrait obtenir une liste avec nos musiciens. Il faut refaire cette dernière étape mais cette fois en supprimant un container musician et refaire un **telnet** 6 secondes après la suppression et vérifier qu'on a bien un musicien en moins dans la liste. La deuxième façon et de lancer le script de validation fourni dans le repo et passé chaque tests de celui-ci. |
 
 
 ## Constraints
