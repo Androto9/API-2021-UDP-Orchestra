@@ -112,11 +112,11 @@ Reminder: answer the following questions [here](https://forms.gle/6SM7cu4cYhNsRv
 |Question | Who is going to **send UDP datagrams** and **when**? |
 | | Les musiciens envoient leur uuid ainsi que le son lié à leur instrument chaque seconde. |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
-| | Ce sont les auditeurs qui vont écouter les UDP datagrams entrant dans l'adresse multicast 239.255.22.5 envoyer par les musiciens. |
+| | Les auditeurs vont écouter les UDP datagrams entrant dans l'adresse multicast 239.255.22.5 envoyés par les musiciens. |
 |Question | What **payload** should we put in the UDP datagrams? |
-| | Ce qui doit être mis dans le payload des UPD datagrams sont l'uuid du musicien et le son produit par son instrument. |
+| | Ce qui doit être mis dans le payload des UDP datagrams sont l'uuid du musicien et le son produit par son instrument. |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
-| | Les musiciens doivent envoyer des datas au format JSON qui seront ensuite parsées par les auditeurs. Ces derniers vont ensuite update les data structures lorsqu'un uuid déjà existant est reçu à nouveau.|
+| | Les musiciens doivent envoyer des datas au format JSON qui seront ensuite parsées par les auditeurs. Ces derniers vont ensuite update les datas structures lorsqu'un uuid déjà existant est reçu à nouveau.|
 
 
 ## Task 2: implement a "musician" Node.js application
@@ -124,21 +124,21 @@ Reminder: answer the following questions [here](https://forms.gle/6SM7cu4cYhNsRv
 | #  | Topic |
 | ---  | --- |
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
-| | À l'aide de la fonction stringify() de JSON, on transforme un object javascript en string pour pouvoir l'envoyer. Ensuite avec la fonction parse() de JSON, on effectue l'inverse (transformation d'un string en object javascript. |
+| | À l'aide de la fonction stringify() de JSON, on transforme un objet javascript en string pour pouvoir l'envoyer. Ensuite avec la fonction parse() de JSON, on effectue l'inverse (transformation d'un string en objet javascript). |
 |Question | What is **npm**?  |
 | | Node Package Manager, permet de gérer les dépendances et d'installer les packages de NodeJS. |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
 | | La commande `npm install` permet d'installer un package désiré de NodeJS et ses dépendances dans un dossier appelé `node-modules`. On utilise le flag `--save` pour sauvegarder les dépendences installées dans le fichier package.json lorsqu'un package est spécifié (`npm install <nomdupackage> --save`). |
 |Question | How can we use the `https://www.npmjs.com/` web site? |
-| | Le site est une bibliothèque contenant tous les packages peuvantt être installer dans un projet NodeJS. Il suffit de rechercher le package désiré et d'utiliser la commande `npm install <nomdupackage> --save` afin de l'installer. |
+| | Le site est une bibliothèque contenant tous les packages pouvant être installés dans un projet NodeJS. Il suffit de rechercher le package désiré et d'utiliser la commande `npm install <nomdupackage> --save` afin de l'installer. |
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
-| | Tout d'abord il faut installer le package uuid avec `npm install uuid --save`, ensuite dans le script javascript écrite la ligne suivante `var { v4: uuidv4 } = require('uuid');` et pour finir avec la fonction `uuidv4()` on génère un uuid aléatoire. |
+| | Tout d'abord il faut installer le package uuid avec `npm install uuid --save`, ensuite dans le script javascript écrire la ligne suivante `var { v4: uuidv4 } = require('uuid');` et pour finir avec la fonction `uuidv4()` on génère un uuid aléatoire. |
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
 | | Grâce à la fonction setInterval(function, time), à noter que `time` est en milliseconde donc pour exécuter la fonction chaque seconde il faut mettre `1000`.  |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
-| | À l'aide du module de NodeJS `dgram`. Il faut écrire les lignes suivantes dans le script `var dgram = require('dgram');`, ensuite `var s = dgram.createSocket('udp4');` qui va créer le socket et pour finir grâce à la fonction `send(message, offset, lenght, port, address, function)`, on peut envoyer nos UDP datagrams. |
+| | À l'aide du module de NodeJS `dgram`. Il faut écrire les lignes suivantes dans le script `var dgram = require('dgram');`, ensuite `var s = dgram.createSocket('udp4');` qui va créer le socket et pour finir grâce à la fonction `send(message, offset, length, port, address, function)`, on peut envoyer nos UDP datagrams. |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | Grâce à l'objet process, il est possible de récupérer les arguments avec `process.argv[n]` (n étant l'index de l'argument voulu). |
+| | Grâce à l'objet `process`, il est possible de récupérer les arguments avec `process.argv[n]` (n étant l'index de l'argument voulu). |
 
 
 ## Task 3: package the "musician" app in a Docker image
@@ -146,7 +146,7 @@ Reminder: answer the following questions [here](https://forms.gle/6SM7cu4cYhNsRv
 | #  | Topic |
 | ---  | --- |
 |Question | How do we **define and build our own Docker image**?|
-| | En premier il faut créer un dockerfile dans le dossier ou l'on désire créer une image. Ensuite, il faut utiliser la commande `docker build -t [tag/nom de l'image] .` dans le dossier ou se trouve notre dockerfile. |
+| | En premier il faut créer un dockerfile dans le dossier où l'on désire créer une image. Ensuite, il faut utiliser la commande `docker build -t [tag/nom de l'image] .` dans le dossier où se trouve notre dockerfile. |
 |Question | How can we use the `ENTRYPOINT` statement in our Dockerfile?  |
 | | La commande `ENTRYPOINT ["node", "/opt/app/musician.js"]` permet d'exécuter la commande `node /opt/app/musician.js` dans un container à sa création et va lancer le fichier js correspondant (musician.js dans ce cas). |
 |Question | After building our Docker image, how do we use it to **run containers**?  |
@@ -164,15 +164,15 @@ Reminder: answer the following questions [here](https://forms.gle/6SM7cu4cYhNsRv
 | #  | Topic |
 | ---  | ---  |
 |Question | With Node.js, how can we listen for UDP datagrams in a multicast group? |
-| | Il faut utiliser `dgram` en écrivant dans le script js les lignes suivantes `const dgram = require('dgram');` puis `const s = dgram.createSocket('udp4');`, cette dernière va créer le socket pour la connection **UDP**. Ensuite, il faut faire un `bind(port, function)` et dans ce bind il faut utiliser la fonction `addMembership(multicast address)`. |
+| | Il faut utiliser `dgram` en écrivant dans le script js les lignes suivantes `const dgram = require('dgram');` puis `const s = dgram.createSocket('udp4');`, cette dernière va créer le socket pour la connexion **UDP**. Ensuite, il faut faire un `bind(port, function)` et dans ce bind il faut utiliser la fonction `addMembership(multicast address)`. |
 |Question | How can we use the `Map` built-in object introduced in ECMAScript 6 to implement a **dictionary**?  |
-| | `Map` permet d'associer les sons à leurs instrments et vice-versa. Il faut écrire la ligne suivante sur le script js `const myMap = new Map()` et pour y ajouter des éléments il faut faire `myMap.set('piano', 'ti-ta-ti')`. |
+| | `Map` permet d'associer les sons à leurs instruments et vice-versa. Il faut écrire la ligne suivante sur le script js `const myMap = new Map()` et pour y ajouter des éléments il faut faire `myMap.set('piano', 'ti-ta-ti')`. |
 |Question | How can we use the `Moment.js` npm module to help us with **date manipulations** and formatting?  |
-| | Tout d'abord, installer le module avec la commande `npm install moment --save`, ensuite dans le script écrire `const moment = require('moment')` et pour finir faire `moment.format();` pour générer la date par défaut. Plusieurs formats sont fournis par le module, pour en savoir plus il suffit de consulter la documentation de moment.js|
+| | Tout d'abord, installer le module avec la commande `npm install moment --save`, ensuite dans le script écrire `const moment = require('moment')` et pour finir faire `moment.format();` pour générer la date par défaut. Plusieurs formats sont fournis par le module, pour en savoir plus il suffit de consulter la documentation de moment.js. Nous n'avons pas utilisé **moment** dans notre code mais **date**. |
 |Question | When and how do we **get rid of inactive players**?  |
-| | On supprime un musicien quand ce dernier n'a pas envoyé de son depuis plus de 5 secondes. Dans notre script js, nous avons une fonction qui incrémente le temps chaque seconde. Ensuite dans la fonction `s.on()`, on ajoute un musicien s'il n'existait pas déjà par contre s'il est déjà dans la liste on réinisialise sont temps à 0. Pour finir, on a une fonction qui supprime les musiciens qui n'ont pas envoyé de sons depuis plus de 5 secondes. |
+| | On supprime un musicien quand ce dernier n'a pas envoyé de son depuis plus de 5 secondes. Dans notre script js, nous avons une fonction qui incrémente le temps chaque seconde. Ensuite dans la fonction `s.on()`, on ajoute un musicien s'il n'existait pas déjà par contre s'il est déjà dans la liste on réinisialise son temps à 0. Pour finir, on a une fonction qui supprime les musiciens qui n'ont pas envoyé de son depuis plus de 5 secondes. |
 |Question | How do I implement a **simple TCP server** in Node.js?  |
-| | Il y a 3 étapes à l'implémentation, premièrement on ajoute au script la ligne `const net = require('net');`, ensuite on doit créer le serveur avec `var tcpServer = net.createServer(function(socket))` qui sera appelée à chaque fois qu'un client se connecte. Pour finir, on utilise la fonction `listen(tcp_port)` avec le port pour la connection **TCP**. |
+| | Il y a 3 étapes à l'implémentation, premièrement on ajoute au script la ligne `const net = require('net');`, ensuite on doit créer le serveur avec `var tcpServer = net.createServer(function(socket))` qui sera appelé à chaque fois qu'un client se connecte. Pour finir, on utilise la fonction `listen(tcp_port)` avec le port pour la connection **TCP**. |
 
 
 ## Task 5: package the "auditor" app in a Docker image
@@ -180,7 +180,7 @@ Reminder: answer the following questions [here](https://forms.gle/6SM7cu4cYhNsRv
 | #  | Topic |
 | ---  | --- |
 |Question | How do we validate that the whole system works, once we have built our Docker image? |
-| | Il y a 2 façon de valider le bon fonctionnement de notre système. La première est de run un container **auditor** et plusieurs **musician**, ensuite de faire un `telnet localhost 2205` sur la console et la on devrait obtenir une liste avec nos musiciens. Il faut refaire cette dernière étape mais cette fois en supprimant un container musician et refaire un **telnet** 6 secondes après la suppression et vérifier qu'on a bien un musicien en moins dans la liste. La deuxième façon et de lancer le script de validation fourni dans le repo et passé chaque tests de celui-ci. |
+| | Il y a 2 façons de valider le bon fonctionnement de notre système. La première est de run un container **auditor** et plusieurs **musician**, ensuite de faire un `telnet localhost 2205` sur la console et là on devrait obtenir une liste avec nos musiciens. Il faut refaire cette dernière étape mais cette fois en supprimant un container **musician** et refaire un **telnet** 6 secondes après la suppression et vérifier qu'on a bien un musicien en moins dans la liste. La deuxième façon est de lancer le script de validation fourni dans le repo et passer chaques tests de celui-ci. |
 
 
 ## Constraints
