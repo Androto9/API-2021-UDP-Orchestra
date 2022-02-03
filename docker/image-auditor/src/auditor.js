@@ -18,7 +18,7 @@ let musicians = [];
 
 // Update musicians time
 function updateMusiciansTime() {
-    musicians.map(m => m.time++);
+    musicians.forEach(m => m.time++);
 }
 
 // Clears musicians that didnt play for more than 5 seconds
@@ -70,7 +70,7 @@ var tcpServer = net.createServer(function (socket) {
     let musiciansList = JSON.parse(JSON.stringify(musicians));
 
     // Removes the time of musicians to not display it
-    musiciansList.forEach(function (tmp) { delete tmp.time });
+    musiciansList.forEach(tmp => delete tmp.time);
 
     // Sends the list of musicians and close the socket
     socket.write(JSON.stringify(musiciansList));
